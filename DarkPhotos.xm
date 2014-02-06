@@ -119,7 +119,6 @@
     return [UIColor lightGrayColor];
 }
 
-
 -(id)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1{
     return [UIColor colorWithWhite:0.25 alpha:0.9];
 }
