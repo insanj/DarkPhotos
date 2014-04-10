@@ -5,60 +5,42 @@
 %ctor {
     [UITabBar appearance].barStyle = UIBarStyleBlack;
     [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
+
+	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];    
+	}];
 }
 
-// Although this is a pretty sleazy thing to do, it applies properly in all cases,
-// and doesn't slow down running time by very much. Let it slide, guru.
-static BOOL sendingFromWhite = NO, sendingFromBlack = NO;
-%hook UIColor
+// "Moments" view background.
+%hook PUGridRenderedStrip
 
-+ (UIColor *)whiteColor {
-    if (!sendingFromBlack) {
-        sendingFromWhite = YES;
-        UIColor *replacement = [UIColor blackColor];
-        sendingFromWhite = NO;
-
-        return replacement;
-    }
-
-    return %orig();
-}
-
-+ (UIColor *)blackColor {
-    if (!sendingFromWhite) {
-        sendingFromBlack = YES;
-        UIColor *replacement = [UIColor whiteColor];
-        sendingFromBlack = NO;
-
-        return replacement;
-    }
-
-    return %orig();
+- (int)backgroundColorValue {
+    return 0;
 }
 
 %end
-
-
-// "Moments" view background.
-//%hook PUGridRenderedStrip
-
-//- (int)backgroundColorValue {
-//    return 0;
-//}
-
-//%end
 
 // Replaces and prevents updating of collection/tableview header background colors.
 %hook PUPhotosSectionHeaderView
 
 - (id)initWithFrame:(CGRect)frame {
     PUPhotosSectionHeaderView *headerView = (PUPhotosSectionHeaderView *) %orig(frame);
-    headerView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.8];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.85];
     return headerView;
 }
 
 - (void)_updateBackground {
     return;
+}
+
+- (void)layoutSubviews {
+    %orig();
+
+    for (UIView *v in self.subviews) {
+        if ([v isKindOfClass:UILabel.class]) {
+            ((UILabel *)v).textColor = [UIColor whiteColor];
+        }
+    }
 }
 
 %end
@@ -67,17 +49,25 @@ static BOOL sendingFromWhite = NO, sendingFromBlack = NO;
 %hook PUFlatWhiteInterfaceTheme
 
 - (UIColor *)albumListBackgroundColor {
-    return [UIColor whiteColor];            // Remember, these are reversed!
+    return [UIColor blackColor];
 }
 
-//- (UIColor *)cloudFeedBackgroundColor {
-//    return [UIColor darkGrayColor];
-//}
+- (NSDictionary *)cloudFeedDefaultTextAttributes {
+    return [self cloudFeedWhiteDefaultTextAttributes];
+}
+
+- (NSDictionary *)cloudFeedEmphasizedTextAttributes {
+    return [self cloudFeedWhiteEmphasizedTextAttributes];
+}
+
+- (UIColor *)cloudFeedBackgroundColor {
+    return [UIColor blackColor];
+}
 
 - (UIStatusBarStyle)photoBrowserStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-/*
+
 - (UIColor *)photoBrowserChromeHiddenBackgroundColor {
     return [UIColor blackColor];
 }
@@ -85,7 +75,7 @@ static BOOL sendingFromWhite = NO, sendingFromBlack = NO;
 - (UIColor *)photoBrowserChromeVisibleBackgroundColor {
     return [UIColor blackColor];
 }
-*/
+
 //- (BOOL)photoCollectionToolbarTranslucent {
 //    return YES;
 //}
@@ -117,25 +107,25 @@ static BOOL sendingFromWhite = NO, sendingFromBlack = NO;
 //- (UIColor *)cloudFeedSeparatorColor {
 //    return [UIColor lightGrayColor];
 //}
-/*
+
 - (UIColor *)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1 {
-    return [UIColor blackColor];//[UIColor colorWithWhite:0.25 alpha:0.9];
+    return [UIColor blackColor]; // [UIColor colorWithWhite:0.25 alpha:0.9];
 }
 
 - (UIColor *)emptyPlaceholderViewBackgroundColor {
     return [UIColor blackColor];
 }
-*/
+
 - (UIStatusBarStyle)topLevelStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-/*
+
 - (UIColor *)photoCollectionViewBackgroundColor {
     return [UIColor blackColor];
 }
-*/
+
 %end
-/*
+
 // Again, self-explanatory. Just the Album tab.
 %hook PUAlbumListTableViewController
 
@@ -144,4 +134,37 @@ static BOOL sendingFromWhite = NO, sendingFromBlack = NO;
 }
 
 %end
-*/
+
+// Blah blah blah...
+%hook PUAlbumListTableViewCell
+
+- (void)layoutSubviews {
+    %orig();
+    self.backgroundColor = [UIColor blackColor];
+}
+
+%end
+
+%hook PUAlbumListCellContentView
+
+- (void)layoutSubviews {
+    %orig();
+
+    self._titleTextField.textColor = [UIColor whiteColor];
+    self._subtitleLabel.textColor = [UIColor whiteColor];
+
+}
+
+%end
+
+// Table view controller that shows up under People tab in Steams
+%hook PLAlbumStreamingOptionsViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    UITableView *options = MSHookIvar<UITableView *>(self, "_optionsTableView");
+    options.backgroundColor = [UIColor blackColor];
+
+    %orig(animated);
+}
+
+%end
