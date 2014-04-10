@@ -5,9 +5,9 @@ Dark, beautiful Photos (MobileSlideShow) app. Compiled for all devices (unlike B
 
 Cydia icon by the wonderful afrokat980 (Derek).
 
-![iCloud Stream View](screenies/stream.png)
-![Moments View](screenies/moments.png)
-![Individual Video View](screenies/video.png)
+![iCloud Stream View](screenies/stream.jpg)
+![Moments View](screenies/moments.jpg)
+![Individual Video View](screenies/video.jpg)
 
 ---------------------------------------
 [Creative Commons Attribution-NonCommercial 3.0 United States License](http://creativecommons.org/licenses/by-nc/3.0/us/) as of 2014:
