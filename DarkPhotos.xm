@@ -1,145 +1,115 @@
-#import <UIKit/UIKit.h>
+#import "DarkPhotos.h"
 
-%ctor{
+// For global appearance changes. This method only works for standard UI elements,
+// and in this case, the UITabBar and UITableViewCells.
+%ctor  {
     [UITabBar appearance].barStyle = UIBarStyleBlack;
     [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
 }
 
-@interface PUGridRenderedStrip : UICollectionReusableView
--(int)backgroundColorValue;
-@end
-
-@interface PUPhotosSectionHeaderView : UICollectionReusableView 
--(unsigned int)backgroundStyle;
--(void)_updateBackground;
--(void)_updateHighlightView;
-@end
-
-@interface PUFlatWhiteInterfaceTheme : NSObject
--(int)defaultKeyboardAppearance;
--(id)albumListBackgroundColor;
--(id)photoCollectionToolbarButtonTintColor;
--(id)topLevelNavigationBarButtonTintColor;
--(id)cloudFeedBackgroundColor;
--(int)photoBrowserStatusBarStyle;
--(id)photoBrowserChromeHiddenBackgroundColor;
--(id)photoBrowserChromeVisibleBackgroundColor;
--(id)photoCollectionToolbarTintColor;
--(BOOL)photoCollectionToolbarTranslucent;
--(int)photoCollectionToolbarStyle;
--(int)photoCollectionViewBackgroundColorValue;
--(id)bannerBackgroundColor;
--(id)topLevelTabBarSelectedImageTintColor;
--(id)topLevelTabBarTintColor;
--(id)gridViewCellBannerTextColor;
--(id)gridViewCellBannerBackgroundColor;
--(id)topLevelNavigationBarTintColor;
--(BOOL)topLevelNavigationBarTranslucent;
--(int)topLevelNavigationBarStyle;
--(id)cloudFeedSeparatorColor;
--(id)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1;
--(id)emptyPlaceholderViewBackgroundColor;
--(int)topLevelStatusBarStyle;
--(id)photoCollectionViewBackgroundColor;
-@end
-
+// "Moments" view background.
 %hook PUGridRenderedStrip
 
--(int)backgroundColorValue{
+- (int)backgroundColorValue {
     return 0;
 }
 
 %end
 
+// Header view background (didn't choose black and white because, at the time, I
+// cound't locate the specific color-changers for the text as well as backing).
 %hook PUPhotosSectionHeaderView
 
--(id)initWithFrame:(CGRect)arg1{
-    PUPhotosSectionHeaderView *o = (PUPhotosSectionHeaderView *)%orig();
-    o.backgroundColor = [UIColor darkGrayColor];
-    return o;
+- (id)initWithFrame:(CGRect)frame {
+    PUPhotosSectionHeaderView *headerView = (PUPhotosSectionHeaderView *) %orig(frame);
+    headerView.backgroundColor = [UIColor darkGrayColor];
+    return headerView;
 }
 
--(void)_updateBackground{
+- (void)_updateBackground {
     return;
 }
 
 %end
 
+// Should be self explanatory (thanks, Apple!)...
 %hook PUFlatWhiteInterfaceTheme
 
--(id)albumListBackgroundColor{
+- (UIColor *)albumListBackgroundColor {
     return [UIColor darkGrayColor];
 }
 
--(id)cloudFeedBackgroundColor{
+- (UIColor *)cloudFeedBackgroundColor {
     return [UIColor darkGrayColor];
 }
 
--(int)photoBrowserStatusBarStyle{
+- (UIStatusBarStyle)photoBrowserStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
--(id)photoBrowserChromeHiddenBackgroundColor{
+- (UIColor *)photoBrowserChromeHiddenBackgroundColor {
     return [UIColor blackColor];
 }
 
--(id)photoBrowserChromeVisibleBackgroundColor{
+- (UIColor *)photoBrowserChromeVisibleBackgroundColor {
     return [UIColor blackColor];
 }
 
--(BOOL)photoCollectionToolbarTranslucent{
+- (BOOL)photoCollectionToolbarTranslucent {
     return YES;
 }
 
--(int)photoCollectionToolbarStyle{
+- (UIBarStyle)photoCollectionToolbarStyle {
     return UIBarStyleBlack;
 }
 
--(id)bannerBackgroundColor{
+- (UIColor *)bannerBackgroundColor {
     return [UIColor darkGrayColor];
 }
 
--(id)gridViewCellBannerTextColor{
+- (UIColor *)gridViewCellBannerTextColor {
     return [UIColor lightGrayColor];
 }
 
--(id)gridViewCellBannerBackgroundColor{
+- (UIColor *)gridViewCellBannerBackgroundColor {
     return [UIColor darkGrayColor];
 }
 
--(BOOL)topLevelNavigationBarTranslucent{
+- (BOOL)topLevelNavigationBarTranslucent {
     return YES;
 }
- 
--(int)topLevelNavigationBarStyle{
+
+- (UIBarStyle)topLevelNavigationBarStyle {
     return UIBarStyleBlack;
 }
 
--(id)cloudFeedSeparatorColor{
+- (UIColor *)cloudFeedSeparatorColor {
     return [UIColor lightGrayColor];
 }
 
--(id)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1{
+- (UIColor *)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1 {
+    %log;
     return [UIColor colorWithWhite:0.25 alpha:0.9];
 }
 
--(id)emptyPlaceholderViewBackgroundColor{
+- (UIColor *)emptyPlaceholderViewBackgroundColor {
     return [UIColor blackColor];
 }
 
--(int)topLevelStatusBarStyle{
+- (UIStatusBarStyle)topLevelStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
--(id)photoCollectionViewBackgroundColor{
+- (UIColor *)photoCollectionViewBackgroundColor {
     return [UIColor blackColor];
 }
 
 %end
 
+// Again, self-explanatory. Just the Album tab.
 %hook PUAlbumListTableViewController
 
--(id)backgroundColorForTableView{
+- (UIColor *)backgroundColorForTableView {
     return [UIColor blackColor];
 }
 
