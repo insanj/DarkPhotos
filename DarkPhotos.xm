@@ -4,53 +4,16 @@
 
 %hook SBApplication
 
-// - (id)_defaultImageInfoForScreen:(id)screen launchingOrientation:(int)orientation {
-
-- (id)_defaultImageName:(id)name {
-    return @"Default";
-}
-
-// uiimage
-//- (id)_defaultPNGForScreen:(id)screen launchingOrientation:(int)orientation orientation:(int *)orientation3 {
-//    float scale = [UIScreen mainScreen].scale;
-//    return [self _defaultPNGPathForScreen:screen launchingOrientation:orientation imageOrientation:orientation3 resultingScale:&scale];
-//}
-
-// - (id)_defaultPNGImageInfoForScreen:(id)screen launchingOrientation:(int)orientation {
-
-- (id)_defaultPNGNameFromActivationSettings {
-    return @"Default";
-}
-
-- (id)_defaultPNGNameFromSearchDomainLaunchInfo:(id)searchDomainLaunchInfo {
-    return @"Default";
-}
-
-- (id)_defaultPNGNameFromSuspensionSettings {
-    return @"Default";
-}
-
-- (id)_defaultPNGNameUsingFallbacks:(id)fallbacks {
-    return @"Default";
-}
-
-- (id)_defaultPNGNameWhenActivatingFromURLSetting:(id)urlsetting {
-    return @"Default";
-}
-
+// Replaces the splash screen.
 - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale {
     if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
-        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
+        NSString *path = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
+        NSLog(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", %orig, path, [UIImage imageWithContentsOfFile:path]);
+        return path;
     }
 
     return %orig();
 }
-
-// - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale
-//    if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
-//        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
-//    }
-// - (id)pathToDefaultImageNamed:(id)arg1 {
 
 %end
 
