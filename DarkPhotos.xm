@@ -2,22 +2,61 @@
 
 %group Shared
 
-%hook UIApplication
+%hook SBApplication
 
-- (id)pathToDefaultImageNamed:(id)arg1 {
-    %log;
-    if ([arg1 rangeOfString:@"com.apple.mobileslideshow"].location != NSNotFound) {
-        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", arg1];
+// - (id)_defaultImageInfoForScreen:(id)screen launchingOrientation:(int)orientation {
+
+- (id)_defaultImageName:(id)name {
+    return @"Default";
+}
+
+// uiimage
+//- (id)_defaultPNGForScreen:(id)screen launchingOrientation:(int)orientation orientation:(int *)orientation3 {
+//    float scale = [UIScreen mainScreen].scale;
+//    return [self _defaultPNGPathForScreen:screen launchingOrientation:orientation imageOrientation:orientation3 resultingScale:&scale];
+//}
+
+// - (id)_defaultPNGImageInfoForScreen:(id)screen launchingOrientation:(int)orientation {
+
+- (id)_defaultPNGNameFromActivationSettings {
+    return @"Default";
+}
+
+- (id)_defaultPNGNameFromSearchDomainLaunchInfo:(id)searchDomainLaunchInfo {
+    return @"Default";
+}
+
+- (id)_defaultPNGNameFromSuspensionSettings {
+    return @"Default";
+}
+
+- (id)_defaultPNGNameUsingFallbacks:(id)fallbacks {
+    return @"Default";
+}
+
+- (id)_defaultPNGNameWhenActivatingFromURLSetting:(id)urlsetting {
+    return @"Default";
+}
+
+- (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale {
+    if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
+        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
     }
 
     return %orig();
 }
 
+// - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale
+//    if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
+//        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
+//    }
+// - (id)pathToDefaultImageNamed:(id)arg1 {
+
 %end
 
-%end // %group Shared
+%end // %end Shared
 
-%group DarkPhotos
+%group Photos
 
 // "Moments" view background.
 %hook PUGridRenderedStrip
@@ -177,15 +216,15 @@
 
 %end
 
-%end // %group DarkPhotos
+%end // %group Photos
 
 %ctor {
     %init(Shared);
 
     // For global appearance changes. This method only works for standard
     // UI elements, and in this case, the UITabBar and UITableViewCells.
-    if ([[UIApplication sharedApplication] isKindOfClass:%c(PhotosApplication)]) {
-        %init(DarkPhotos);
+    if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.mobileslideshow"]) {
+        %init(Photos);
         [UITabBar appearance].barStyle = UIBarStyleBlack;
         [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
 

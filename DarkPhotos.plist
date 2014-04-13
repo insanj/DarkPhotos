@@ -1,5 +1,5 @@
 {
 	Filter = {
-		Bundles = ( "com.apple.mobileslideshow" );
+		Bundles = ( "com.apple.UIKit" );
 	};
 }

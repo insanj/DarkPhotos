@@ -1,5 +1,19 @@
 #import <UIKit/UIKit.h>
 
+@interface SBApplication : UIApplication
+- (id)bundleIdentifier;
+- (id)_defaultImageInfoForScreen:(id)screen launchingOrientation:(int)orientation;
+- (id)_defaultImageName:(id)name;
+- (id)_defaultPNGForScreen:(id)screen launchingOrientation:(int)orientation orientation:(int *)orientation3;
+- (id)_defaultPNGImageInfoForScreen:(id)screen launchingOrientation:(int)orientation;
+- (id)_defaultPNGNameFromActivationSettings;
+- (id)_defaultPNGNameFromSearchDomainLaunchInfo:(id)searchDomainLaunchInfo;
+- (id)_defaultPNGNameFromSuspensionSettings;
+- (id)_defaultPNGNameUsingFallbacks:(id)fallbacks;
+- (id)_defaultPNGNameWhenActivatingFromURLSetting:(id)urlsetting;
+- (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale;
+@end
+
 @interface PhotosApplication : UIApplication
 @end
 
