@@ -1,15 +1,23 @@
 #import "DarkPhotos.h"
 
-// For global appearance changes. This method only works for standard
-// UI elements, and in this case, the UITabBar and UITableViewCells.
-%ctor {
-    [UITabBar appearance].barStyle = UIBarStyleBlack;
-    [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
+%group Shared
 
-	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];    
-	}];
+%hook UIApplication
+
+- (id)pathToDefaultImageNamed:(id)arg1 {
+    %log;
+    if ([arg1 rangeOfString:@"com.apple.mobileslideshow"].location != NSNotFound) {
+        return [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", arg1];
+    }
+
+    return %orig();
 }
+
+%end
+
+%end // %group Shared
+
+%group DarkPhotos
 
 // "Moments" view background.
 %hook PUGridRenderedStrip
@@ -168,3 +176,21 @@
 }
 
 %end
+
+%end // %group DarkPhotos
+
+%ctor {
+    %init(Shared);
+
+    // For global appearance changes. This method only works for standard
+    // UI elements, and in this case, the UITabBar and UITableViewCells.
+    if ([[UIApplication sharedApplication] isKindOfClass:%c(PhotosApplication)]) {
+        %init(DarkPhotos);
+        [UITabBar appearance].barStyle = UIBarStyleBlack;
+        [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+    }
+}

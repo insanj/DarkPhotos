@@ -1,5 +1,8 @@
 #import <UIKit/UIKit.h>
 
+@interface PhotosApplication : UIApplication
+@end
+
 @interface PUBackgroundColorView : UIView
 - (void)setBackgroundColor:(id)arg1;
 @end
