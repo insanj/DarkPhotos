@@ -1,4 +1,13 @@
 #import <UIKit/UIKit.h>
+#import "substrate.h"
+
+#ifdef DEBUG
+    #define DPLOG(fmt, ...) NSLog((@"[DarkPhotos] %s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+    #define DPLOG(fmt, ...) 
+#endif
+
+#define IS_PANGU (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_7_1)
 
 @interface SBApplication : UIApplication
 - (id)bundleIdentifier;
@@ -11,7 +20,7 @@
 - (id)_defaultPNGNameFromSuspensionSettings;
 - (id)_defaultPNGNameUsingFallbacks:(id)fallbacks;
 - (id)_defaultPNGNameWhenActivatingFromURLSetting:(id)urlsetting;
-- (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale;
+- (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(CGFloat *)scale;
 @end
 
 @interface PhotosApplication : UIApplication
@@ -25,12 +34,6 @@
 - (int)backgroundColorValue;
 @end
 
-@interface PUPhotosSectionHeaderView : UICollectionReusableView
-- (unsigned int)backgroundStyle;
-- (void)_updateBackground;
-- (void)_updateHighlightView;
-@end
-
 @interface PLAlbumStreamingOptionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @end
 
@@ -42,6 +45,11 @@
 @property(setter=_setTitleTextField:,retain) UITextField * _titleTextField;
 @property(setter=_setSubtitleLabel:,retain) UILabel * _subtitleLabel;
 @property(setter=_setDeleteButton:,retain) UIButton * _deleteButton;
+
+// iOS 7.1+
+// @property(setter=_setSubtitleLabel:,retain) UILabel * _subtitleLabel;
+@property(setter=_setTitleLabel:,retain) UILabel * _titleLabel;
+
 @end
 
 @interface PUFlatWhiteInterfaceTheme : NSObject
@@ -88,8 +96,8 @@
 - (void)configureCloudFeedStackView:(id)arg1 withStackSize:(CGSize)arg2;
 - (id)cloudFeedBackgroundColor;
 - (int)photoBrowserStatusBarStyle;
-- (float)videoPaletteBottomMargin;
-- (float)videoPaletteSideMargin;
+- (CGFloat)videoPaletteBottomMargin;
+- (CGFloat)videoPaletteSideMargin;
 - (id)photoBrowserChromeHiddenBackgroundColor;
 - (id)photoBrowserChromeVisibleBackgroundColor;
 - (id)photoCollectionToolbarBackgroundImageForBarMetrics:(int)arg1;
@@ -100,7 +108,7 @@
 - (void)configurePhotoCollectionGlobalFooterSubtitleLabel:(id)arg1;
 - (void)configurePhotoCollectionGlobalFooterTitleLabel:(id)arg1;
 - (int)photoCollectionViewBackgroundColorValue;
-- (float)bannerHeight;
+- (CGFloat)bannerHeight;
 - (id)bannerBackgroundColor;
 - (void)configureBannerLabel:(id)arg1;
 - (void)configureBannerStackView:(id)arg1;
@@ -138,7 +146,7 @@
 - (void)configureAlbumListStackViewPhonePhotoDecoration:(id)arg1;
 - (id)cloudFeedInvitationSubtitleTextAttributes;
 - (id)cloudFeedInvitationTitleTextAttributes;
-- (float)cloudFeedSeparatorHeight;
+- (CGFloat)cloudFeedSeparatorHeight;
 - (id)cloudFeedSeparatorColor;
 - (void)configureCloudFeedInvitationReplyButton:(id)arg1;
 - (UIOffset)photoCollectionHeaderLocationIconOffsetForStyle:(int)arg1;
@@ -150,8 +158,8 @@
 - (BOOL)photoCollectionHeaderSecondaryLabelsAllCapsForStyle:(int)arg1;
 - (void)configurePhotoCollectionHeaderLocationsLabel:(id)arg1 forStyle:(int)arg2;
 - (void)configurePhotoCollectionHeaderTitleLabel:(id)arg1 forStyle:(int)arg2;
-- (float)albumListDisabledAlbumTitleAlpha;
-- (float)albumListDisabledAlbumStackViewAlpha;
+- (CGFloat)albumListDisabledAlbumTitleAlpha;
+- (CGFloat)albumListDisabledAlbumStackViewAlpha;
 - (void)configureAlbumListDeleteButton:(id)arg1;
 - (void)configureAlbumListSubtitleLabel:(id)arg1;
 - (void)configureAlbumListTitleTextField:(id)arg1;
@@ -161,9 +169,173 @@
 - (void)configureTopLevelNavigationBarDoneButton:(id)arg1;
 - (int)topLevelStatusBarStyle;
 - (id)photoCollectionViewBackgroundColor;
-- (float)photoCollectionToolbarIconToTextSpacerWidth;
-- (float)photoCollectionToolbarTextTitleSpacerWidth;
+- (CGFloat)photoCollectionToolbarIconToTextSpacerWidth;
+- (CGFloat)photoCollectionToolbarTextTitleSpacerWidth;
 - (void)configurePhotoCollectionToolbarDeleteButton:(id)arg1;
 - (void)configurePhotoCollectionToolbarButton:(id)arg1;
 
 @end
+
+// iOS 7.1+
+@interface PUPhotosSectionHeaderContentView : UIView {
+    UILabel *dateLabel;
+    UIImageView *locationsIconView;
+    UILabel *locationsLabel;
+    UILabel *titleLabel;
+}
+
+@property(retain) UILabel * dateLabel;
+@property(retain) UIImageView * locationsIconView;
+@property(retain) UILabel * locationsLabel;
+@property(retain) UILabel * titleLabel;
+
+- (void)drawRect:(CGRect)arg1;
+
+@end
+
+@interface PUPhotosSectionHeaderView : UIView /*: UICollectionReusableView {
+    struct CGSize { 
+        float width; 
+        float height; 
+    struct UIEdgeInsets { 
+        float top; 
+        float left; 
+        float bottom; 
+        float right; 
+    struct UIEdgeInsets { 
+        float top; 
+        float left; 
+        float bottom; 
+        float right; 
+    struct UIEdgeInsets { 
+        float top; 
+        float left; 
+        float bottom; 
+        float right; 
+    UIButton *_actionButton;
+    } _actionButtonInitialContentInsets;
+    } _actionButtonInitialSize;
+    float _actionButtonLabelInitialMaxY;
+    NSString *_actionButtonTitle;
+    BOOL _allowsLocationInteraction;
+    _UIBackdropView *_backdropView;
+    NSString *_backdropViewGroupName;
+    unsigned int _backgroundStyle;
+    } _contentInsets;
+    PUPhotosSectionHeaderContentView *_contentView;
+    UILabel *_dateLabel;
+    <PUPhotosSectionHeaderViewDelegate> *_delegate;
+    BOOL _generateDefaultTitleFromDates;
+    } _highlightInsets;
+    UIView *_highlightView;
+    BOOL _highlightViewVisible;
+    BOOL _inLayoutTransition;
+    UIImageView *_locationsIconView;
+    UILabel *_locationsLabel;
+    BOOL _performingBatchDateDependentUpdate;
+    NSDate *_sectionEndDate;
+    int _sectionIndex;
+    NSArray *_sectionLocations;
+    NSDate *_sectionStartDate;
+    NSString *_sectionTitle;
+    BOOL _showsActionButton;
+    int _style;
+    UILabel *_titleLabel;
+    BOOL _useYearOnlyForDefaultTitle;
+    BOOL _usingBackgroundBlur;
+}
+
+@property(copy) NSString * actionButtonTitle;
+@property BOOL allowsLocationInteraction;
+@property(copy) NSString * backdropViewGroupName;
+@property unsigned int backgroundStyle;
+@property UIEdgeInsets contentInsets;
+@property <PUPhotosSectionHeaderViewDelegate> * delegate;
+@property(readonly) BOOL generateDefaultTitleFromDates;
+@property UIEdgeInsets highlightInsets;
+@property(readonly) NSDate * sectionEndDate;
+@property int sectionIndex;
+@property(retain) NSArray * sectionLocations;
+@property(readonly) NSDate * sectionStartDate;
+@property(retain) NSString * sectionTitle;
+@property BOOL showsActionButton;
+@property int style;
+@property(readonly) NSString * synthesizedSectionTitle;
+@property(readonly) BOOL useYearOnlyForDefaultTitle;*/
+
++ (void)_updateLabelGlobalCachedSizes;
++ (void)initialize;
+
+- (id)_dateRangeCompactFormatter;
+- (void)_dateRangeFormatterChanged:(id)arg1;
+- (id)_dateRangeLongFormatter;
+- (id)_dateRangeYearFormatter;
+- (BOOL)_disableRasterizeInAnimations;
+- (void)_handleActionButton:(id)arg1;
+- (void)_handleSignificantDateChange:(id)arg1;
+- (void)_hideHighlightView;
+- (void)_layoutSubviewsStyleFullDetail;
+- (void)_layoutSubviewsStyleOnelineDetail;
+- (void)_layoutSubviewsStyleOnelineMinimal;
+- (CGSize)_preferredSizeForLabel:(id)arg1;
+- (CGSize)_preferredSizeForText:(id)arg1 withFont:(id)arg2;
+- (void)_setHighlightViewVisible:(BOOL)arg1;
+- (void)_setUsingBackgroundBlur:(BOOL)arg1;
+- (void)_updateActionButton;
+- (void)_updateBackdropViewGroupName;
+- (void)_updateBackground;
+- (void)_updateDateDependentLabels;
+- (void)_updateDateLabel;
+- (void)_updateHighlightView;
+- (void)_updateLocationsIconVisibility;
+- (void)_updateLocationsLabelVisibility;
+- (void)_updateTitleLabel;
+- (BOOL)_usingDateAsTitle;
+- (id)actionButtonTitle;
+- (BOOL)allowLocationTapForTouch:(id)arg1;
+- (BOOL)allowsLocationInteraction;
+- (void)applyLayoutAttributes:(id)arg1;
+- (id)backdropViewGroupName;
+- (unsigned int)backgroundStyle;
+- (UIEdgeInsets)contentInsets;
+- (void)dealloc;
+- (id)delegate;
+- (void)didEndDisplaying;
+- (void)didTransitionFromLayout:(id)arg1 toLayout:(id)arg2;
+- (BOOL)generateDefaultTitleFromDates;
+- (UIEdgeInsets)highlightInsets;
+- (id)initWithFrame:(CGRect)arg1;
+- (void)layoutSubviews;
+- (void)performBatchUpdateOfDateDependentPropertiesWithBlock:(id)arg1;
+- (void)prepareForReuse;
+- (id)sectionEndDate;
+- (int)sectionIndex;
+- (id)sectionLocations;
+- (id)sectionStartDate;
+- (id)sectionTitle;
+- (void)setActionButtonTitle:(id)arg1;
+- (void)setAllowsLocationInteraction:(BOOL)arg1;
+- (void)setBackdropViewGroupName:(id)arg1;
+- (void)setBackgroundStyle:(unsigned int)arg1;
+- (void)setContentInsets:(UIEdgeInsets)arg1;
+- (void)setDelegate:(id)arg1;
+- (void)setGenerateDefaultTitleFromDates:(BOOL)arg1 yearOnly:(BOOL)arg2;
+- (void)setHighlightInsets:(UIEdgeInsets)arg1;
+- (void)setSectionIndex:(int)arg1;
+- (void)setSectionLocations:(id)arg1;
+- (void)setSectionStartDate:(id)arg1 endDate:(id)arg2;
+- (void)setSectionTitle:(id)arg1;
+- (void)setShowsActionButton:(BOOL)arg1;
+- (void)setStyle:(int)arg1;
+- (BOOL)showsActionButton;
+- (int)style;
+- (id)synthesizedSectionTitle;
+- (void)touchesBegan:(id)arg1 withEvent:(id)arg2;
+- (void)touchesCancelled:(id)arg1 withEvent:(id)arg2;
+- (void)touchesEnded:(id)arg1 withEvent:(id)arg2;
+- (void)touchesMoved:(id)arg1 withEvent:(id)arg2;
+- (BOOL)useYearOnlyForDefaultTitle;
+- (void)willTransitionFromLayout:(id)arg1 toLayout:(id)arg2;
+
+@end
+

@@ -8,7 +8,7 @@
 - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale {
     if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
         NSString *path = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
-        NSLog(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", %orig, path, [UIImage imageWithContentsOfFile:path]);
+        DPLOG(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", %orig, path, [UIImage imageWithContentsOfFile:path]);
         return path;
     }
 
@@ -18,6 +18,29 @@
 %end
 
 %end // %end Shared
+
+%group Pangu
+
+%hook PUPhotosSectionHeaderView
+
+- (void)_updateTitleLabel {
+    %orig();
+    MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateDateLabel {
+    %orig();
+    MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateLocationsLabelVisibility {
+    %orig();
+    MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
+}
+
+%end
+
+%end // %group Pangu
 
 %group Photos
 
@@ -160,9 +183,17 @@
 - (void)layoutSubviews {
     %orig();
 
-    self._titleTextField.textColor = [UIColor whiteColor];
-    self._subtitleLabel.textColor = [UIColor whiteColor];
+    // Fancy prancy method to swap out these two methods (which seem to
+    // not produce the same exact result).
+    if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_7_1) {
+        self._titleLabel.textColor = [UIColor whiteColor];
+    }
 
+    else {
+        self._titleTextField.textColor = [UIColor whiteColor];
+    }
+
+    self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end
@@ -190,6 +221,11 @@
         %init(Photos);
         [UITabBar appearance].barStyle = UIBarStyleBlack;
         [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
+
+        if (IS_PANGU) {
+            %init(Pangu);
+            [UINavigationBar appearance].barStyle = UIBarStyleBlack;
+        }
 
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
