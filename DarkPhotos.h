@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 #import "substrate.h"
 
 #ifdef DEBUG
@@ -7,7 +8,7 @@
     #define DPLOG(fmt, ...) 
 #endif
 
-#define IS_PANGU (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_7_1)
+#define IS_PANGU ([[[UIDevice currentDevice] systemVersion] compare:@"7.1" options:NSNumericSearch] == NSOrderedDescending)
 
 @interface SBApplication : UIApplication
 - (id)bundleIdentifier;

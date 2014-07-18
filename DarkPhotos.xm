@@ -40,6 +40,39 @@
 
 %end
 
+%hook PUAlbumListCellContentView
+
+// Editing view animation solving
+- (void)_updateSubtitleLabelAnimated:(BOOL)arg1 {
+    %orig();
+    self._subtitleLabel.backgroundColor = [UIColor clearColor];
+    self._subtitleLabel.alpha = 1.0;
+    self._subtitleLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
+    %orig();
+
+    if (IS_PANGU) {
+        self._titleLabel.backgroundColor = [UIColor clearColor];
+        self._titleLabel.alpha = 1.0;
+        self._titleLabel.textColor = [UIColor whiteColor];
+    }
+
+    self._titleTextField.backgroundColor = [UIColor clearColor];
+    self._titleTextField.alpha = 1.0;
+    self._titleTextField.textColor = [UIColor whiteColor];
+}
+
+- (void)layoutSubviews {
+    %orig();
+
+    self._titleLabel.textColor = [UIColor whiteColor];    
+    self._subtitleLabel.textColor = [UIColor whiteColor];
+}
+
+%end
+
 %end // %group Pangu
 
 %group Photos
@@ -109,40 +142,16 @@
     return [UIColor blackColor];
 }
 
-//- (BOOL)photoCollectionToolbarTranslucent {
-//    return YES;
-//}
-
 - (UIBarStyle)photoCollectionToolbarStyle {
     return UIBarStyleBlack;
 }
-
-//- (UIColor *)bannerBackgroundColor {
-//    return [UIColor darkGrayColor];
-//}
-
-//- (UIColor *)gridViewCellBannerTextColor {
-//    return [UIColor lightGrayColor];
-//}
-
-//- (UIColor *)gridViewCellBannerBackgroundColor {
-//    return [UIColor darkGrayColor];
-//}
-
-//- (BOOL)topLevelNavigationBarTranslucent {
-//    return YES;
-//}
 
 - (UIBarStyle)topLevelNavigationBarStyle {
     return UIBarStyleBlack;
 }
 
-//- (UIColor *)cloudFeedSeparatorColor {
-//    return [UIColor lightGrayColor];
-//}
-
 - (UIColor *)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1 {
-    return [UIColor blackColor]; // [UIColor colorWithWhite:0.25 alpha:0.9];
+    return [UIColor blackColor];
 }
 
 - (UIColor *)emptyPlaceholderViewBackgroundColor {
@@ -183,16 +192,7 @@
 - (void)layoutSubviews {
     %orig();
 
-    // Fancy prancy method to swap out these two methods (which seem to
-    // not produce the same exact result).
-    if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_7_1) {
-        self._titleLabel.textColor = [UIColor whiteColor];
-    }
-
-    else {
-        self._titleTextField.textColor = [UIColor whiteColor];
-    }
-
+    self._titleTextField.textColor = [UIColor whiteColor];
     self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
