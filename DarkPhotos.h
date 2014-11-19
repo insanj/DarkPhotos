@@ -9,8 +9,11 @@
 #endif
 
 #define IS_PANGU ([[[UIDevice currentDevice] systemVersion] compare:@"7.1" options:NSNumericSearch] == NSOrderedDescending)
+#define IOS_7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0 && ([UIDevice currentDevice].systemVersion.floatValue < 8.0))
+#define IOS_8 ([UIDevice currentDevice].systemVersion.floatValue >= 8.0)
 
 @interface SBApplication : UIApplication
+
 - (id)bundleIdentifier;
 - (id)_defaultImageInfoForScreen:(id)screen launchingOrientation:(int)orientation;
 - (id)_defaultImageName:(id)name;
@@ -22,30 +25,43 @@
 - (id)_defaultPNGNameUsingFallbacks:(id)fallbacks;
 - (id)_defaultPNGNameWhenActivatingFromURLSetting:(id)urlsetting;
 - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(CGFloat *)scale;
+
+// iOS 8
+- (id)_pathForExistingImageInCandidates:(id)candidates forSceneID:(id)sceneID size:(CGSize)size scale:(float)scale launchingOrientation:(int)orientation imageOrientation:(int *)orientation6 resultingScale:(float *)scale7;
+- (id)defaultPNGPathForSceneID:(id)sceneID size:(CGSize)size scale:(float)scale launchingOrientation:(int)orientation imageOrientation:(int *)orientation5 resultingScale:(float *)scale6;
+- (id)defaultSplashBoardImagePathForSceneID:(id)sceneID size:(CGSize)size scale:(CGFloat)scale snapshot:(BOOL *)snapshot launchingOrientation:(int)orientation originalOrientation:(int *)orientation6 currentOrientation:(int *)orientation7;
+
 @end
 
 @interface PhotosApplication : UIApplication
+
 @end
 
 @interface PUBackgroundColorView : UIView
+
 - (void)setBackgroundColor:(id)arg1;
+
 @end
 
 @interface PUGridRenderedStrip : UICollectionReusableView
+
 - (int)backgroundColorValue;
+
 @end
 
 @interface PLAlbumStreamingOptionsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
 @end
 
 @interface PUAlbumListTableViewCell : UITableViewCell
+
 @end
 
 @interface PUAlbumListCellContentView : UIView <UITextFieldDelegate>
 
-@property(setter=_setTitleTextField:,retain) UITextField * _titleTextField;
-@property(setter=_setSubtitleLabel:,retain) UILabel * _subtitleLabel;
-@property(setter=_setDeleteButton:,retain) UIButton * _deleteButton;
+@property (setter=_setTitleTextField:,retain) UITextField *_titleTextField;
+@property (setter=_setSubtitleLabel:,retain) UILabel *_subtitleLabel;
+@property (setter=_setDeleteButton:,retain) UIButton *_deleteButton;
 
 // iOS 7.1+
 // @property(setter=_setSubtitleLabel:,retain) UILabel * _subtitleLabel;
@@ -185,10 +201,10 @@
     UILabel *titleLabel;
 }
 
-@property(retain) UILabel * dateLabel;
-@property(retain) UIImageView * locationsIconView;
-@property(retain) UILabel * locationsLabel;
-@property(retain) UILabel * titleLabel;
+@property (retain) UILabel * dateLabel;
+@property (retain) UIImageView * locationsIconView;
+@property (retain) UILabel * locationsLabel;
+@property (retain) UILabel * titleLabel;
 
 - (void)drawRect:(CGRect)arg1;
 
@@ -339,4 +355,3 @@
 - (void)willTransitionFromLayout:(id)arg1 toLayout:(id)arg2;
 
 @end
-
