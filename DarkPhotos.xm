@@ -1,6 +1,6 @@
 #import "DarkPhotos.h"
 
-/*                                                                                                
+/*                                                                                                                                                       
                                                                                                   
                                      lllllll                                  hhhhhhh             
                                      l:::::l                                  h:::::h             
@@ -24,7 +24,7 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
                  p:::::::p                                                                        
                  p:::::::p                                                                        
                  ppppppppp                                                                        
-                                                                                                  
+                                                                                                  																																						
 */
 
 %group EightSplash
@@ -32,31 +32,15 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
 %hook SBApplication
 
 - (id)_pathForExistingImageInCandidates:(id)candidates forSceneID:(id)sceneID size:(CGSize)size scale:(float)scale launchingOrientation:(int)orientation imageOrientation:(int *)orientation6 resultingScale:(float *)scale7 {
-    NSString *originalPath = %orig();
-    if (originalPath && [[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
-        NSString *darkPath = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[originalPath componentsSeparatedByString:@"/"] lastObject]];
-        DPLOG(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", originalPath, darkPath, [UIImage imageWithContentsOfFile:darkPath]);
-        return darkPath;
-    }
+	NSString *originalPath = %orig();
+	if (originalPath && [[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
+		NSString *darkPath = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[originalPath componentsSeparatedByString:@"/"] lastObject]];
+		DPLOG(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", originalPath, darkPath, [UIImage imageWithContentsOfFile:darkPath]);
+		return darkPath;
+	}
 
-    return originalPath;
+	return originalPath;
 }
-
-/*- (id)_infoplist_defaultPNGPathForSceneID:(id)sceneID size:(CGSize)size scale:(float)scale launchingOrientation:(int)orientation imageOrientation:(int *)orientation5 resultingScale:(float *)scale6 {
-    DPLOG(@"%@", %orig());
-    return %orig();
-}
-
-- (id)defaultPNGPathForSceneID:(id)sceneID size:(CGSize)size scale:(float)scale launchingOrientation:(int)orientation imageOrientation:(int *)orientation5 resultingScale:(float *)scale6 {
-    DPLOG(@"%@", %orig());
-   return %orig();
-}
-
-- (id)defaultSplashBoardImagePathForSceneID:(id)sceneID size:(CGSize)size scale:(float)scale snapshot:(BOOL *)snapshot launchingOrientation:(int)orientation originalOrientation:(int *)orientation6 currentOrientation:(int *)orientation7 {
-    DPLOG(@"%@", %orig());
-    return %orig();
-}
-*/
 
 %end
 
@@ -68,13 +52,13 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
 
 // Replaces the splash screen.
 - (id)_defaultPNGPathForScreen:(id)screen launchingOrientation:(int)orientation imageOrientation:(int *)orientation3 resultingScale:(float *)scale {
-    if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
-        NSString *path = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
-        DPLOG(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", %orig, path, [UIImage imageWithContentsOfFile:path]);
-        return path;
-    }
+	if ([[self bundleIdentifier] isEqualToString:@"com.apple.mobileslideshow"]) {
+		NSString *path = [NSString stringWithFormat:@"/Library/Application Support/DarkPhotos/%@", [[%orig componentsSeparatedByString:@"/"] lastObject]];
+		DPLOG(@"[DarkPhotos] Replacing image %@ with image found found at path %@: %@", %orig, path, [UIImage imageWithContentsOfFile:path]);
+		return path;
+	}
 
-    return %orig();
+	return %orig();
 }
 
 %end
@@ -82,6 +66,7 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
 %end // %group Splash
 
 /*
+                                                                                                                                                                                                            
                    hhhhhhh                                       tttt                                            
                    h:::::h                                    ttt:::t                                            
                    h:::::h                                    t:::::t                                            
@@ -104,6 +89,7 @@ p:::::::p
 p:::::::p                                                                                                        
 p:::::::p                                                                                                        
 ppppppppp                                                                                                        
+                                                                                                                                                                                                                        
 */                                                                                                                                                                                                 
 
 %group Photos
@@ -112,7 +98,7 @@ ppppppppp
 %hook PUGridRenderedStrip
 
 - (int)backgroundColorValue {
-    return 0;
+	return 0;
 }
 
 %end
@@ -121,23 +107,13 @@ ppppppppp
 %hook PUPhotosSectionHeaderView
 
 - (id)initWithFrame:(CGRect)frame {
-    PUPhotosSectionHeaderView *headerView = (PUPhotosSectionHeaderView *) %orig(frame);
-    headerView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.85];
-    return headerView;
+	PUPhotosSectionHeaderView *headerView = (PUPhotosSectionHeaderView *) %orig(frame);
+	headerView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.85];
+	return headerView;
 }
 
 - (void)_updateBackground {
-    return;
-}
-
-- (void)layoutSubviews {
-    %orig();
-
-    for (UIView *v in self.subviews) {
-        if ([v isKindOfClass:UILabel.class]) {
-            ((UILabel *)v).textColor = [UIColor whiteColor];
-        }
-    }
+	return;
 }
 
 %end
@@ -146,55 +122,55 @@ ppppppppp
 %hook PUFlatWhiteInterfaceTheme
 
 - (UIColor *)albumListBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (NSDictionary *)cloudFeedDefaultTextAttributes {
-    return [self cloudFeedWhiteDefaultTextAttributes];
+	return [self cloudFeedWhiteDefaultTextAttributes];
 }
 
 - (NSDictionary *)cloudFeedEmphasizedTextAttributes {
-    return [self cloudFeedWhiteEmphasizedTextAttributes];
+	return [self cloudFeedWhiteEmphasizedTextAttributes];
 }
 
 - (UIColor *)cloudFeedBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (UIStatusBarStyle)photoBrowserStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+		return UIStatusBarStyleLightContent;
 }
 
 - (UIColor *)photoBrowserChromeHiddenBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (UIColor *)photoBrowserChromeVisibleBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (UIBarStyle)photoCollectionToolbarStyle {
-    return UIBarStyleBlack;
+	return UIBarStyleBlack;
 }
 
 - (UIBarStyle)topLevelNavigationBarStyle {
-    return UIBarStyleBlack;
+	return UIBarStyleBlack;
 }
 
 - (UIColor *)photoCollectionHeaderBackgroundColorForBackgroundStyle:(unsigned int)arg1 {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (UIColor *)emptyPlaceholderViewBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 - (UIStatusBarStyle)topLevelStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+	return UIStatusBarStyleLightContent;
 }
 
 - (UIColor *)photoCollectionViewBackgroundColor {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 %end
@@ -203,7 +179,7 @@ ppppppppp
 %hook PUAlbumListTableViewController
 
 - (UIColor *)backgroundColorForTableView {
-    return [UIColor blackColor];
+	return [UIColor blackColor];
 }
 
 %end
@@ -212,8 +188,8 @@ ppppppppp
 %hook PUAlbumListTableViewCell
 
 - (void)layoutSubviews {
-    %orig();
-    self.backgroundColor = [UIColor blackColor];
+	%orig();
+	self.backgroundColor = [UIColor blackColor];
 }
 
 %end
@@ -221,10 +197,10 @@ ppppppppp
 %hook PUAlbumListCellContentView
 
 - (void)layoutSubviews {
-    %orig();
+	%orig();
 
-    self._titleTextField.textColor = [UIColor whiteColor];
-    self._subtitleLabel.textColor = [UIColor whiteColor];
+	self._titleTextField.textColor = [UIColor whiteColor];
+	self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end
@@ -233,17 +209,18 @@ ppppppppp
 %hook PLAlbumStreamingOptionsViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-    UITableView *options = MSHookIvar<UITableView *>(self, "_optionsTableView");
-    options.backgroundColor = [UIColor blackColor];
+		UITableView *options = MSHookIvar<UITableView *>(self, "_optionsTableView");
+		options.backgroundColor = [UIColor blackColor];
 
-    %orig(animated);
+		%orig(animated);
 }
 
 %end
 
 %end // %group Photos
-                                                                                             
+																																														 
 /*                                                                                                                                                                                        
+                                                                       
 ppppp   ppppppppp     aaaaaaaaaaaaa  nnnn  nnnnnnnn       ggggggggg   ggggguuuuuu    uuuuuu  
 p::::ppp:::::::::p    a::::::::::::a n:::nn::::::::nn    g:::::::::ggg::::gu::::u    u::::u  
 p:::::::::::::::::p   aaaaaaaaa:::::an::::::::::::::nn  g:::::::::::::::::gu::::u    u::::u  
@@ -262,33 +239,20 @@ p:::::::p                                              g:::::gg   gg:::::g
 p:::::::p                                               g::::::ggg:::::::g                   
 p:::::::p                                                gg:::::::::::::g                    
 ppppppppp                                                  ggg::::::ggg                      
-                                                              gggggg                         
+                                                              gggggg                                               
 */
+
 %group Pangu
-
-%hook PUPhotosSectionHeaderView
-
-- (void)_updateDateLabel {
-    %orig();
-    MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
-}
-
-- (void)_updateLocationsLabelVisibility {
-    %orig();
-    MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
-}
-
-%end
 
 %hook PUAlbumListCellContentView
 
 // Editing view animation solving
 - (void)_updateSubtitleLabelAnimated:(BOOL)arg1 {
-    %orig();
+	%orig();
 
-    self._subtitleLabel.backgroundColor = [UIColor clearColor];
-    self._subtitleLabel.alpha = 1.0;
-    self._subtitleLabel.textColor = [UIColor whiteColor];
+	self._subtitleLabel.backgroundColor = [UIColor clearColor];
+	self._subtitleLabel.alpha = 1.0;
+	self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end
@@ -296,6 +260,7 @@ ppppppppp                                                  ggg::::::ggg
 %end // %group Pangu
 
 /*                                                                                       
+                                                                                                                                                                                       
     ssssssssss       eeeeeeeeeeee  vvvvvvv           vvvvvvv eeeeeeeeeeee    nnnn  nnnnnnnn    
   ss::::::::::s    ee::::::::::::ee v:::::v         v:::::vee::::::::::::ee  n:::nn::::::::nn  
 ss:::::::::::::s  e::::::eeeee:::::eev:::::v       v:::::ve::::::eeeee:::::een::::::::::::::nn 
@@ -308,6 +273,7 @@ s:::::ssss::::::se::::::::e                v:::::::v     e::::::::e            n
 s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n::::n    n::::n
  s:::::::::::ss    ee:::::::::::::e          v:::v         ee:::::::::::::e    n::::n    n::::n
   sssssssssss        eeeeeeeeeeeeee           vvv            eeeeeeeeeeeeee    nnnnnn    nnnnnn
+                                                                                                                                                                                        
 */
 
 %group Seven
@@ -315,8 +281,18 @@ s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n
 %hook PUPhotosSectionHeaderView
 
 - (void)_updateTitleLabel {
-    %orig();
-    MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
+	%orig();
+	MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateDateLabel {
+	%orig();
+	MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateLocationsLabelVisibility {
+	%orig();
+	MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
 }
 
 %end
@@ -324,24 +300,24 @@ s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n
 %hook PUAlbumListCellContentView
 
 - (void)_updateTitleFieldAnimated:(BOOL)arg1 {
-    %orig();
+	%orig();
 
-    if (IS_PANGU) {
-        self._titleLabel.backgroundColor = [UIColor clearColor];
-        self._titleLabel.alpha = 1.0;
-        self._titleLabel.textColor = [UIColor whiteColor];
-    }
+	if (IS_PANGU) {
+		self._titleLabel.backgroundColor = [UIColor clearColor];
+		self._titleLabel.alpha = 1.0;
+		self._titleLabel.textColor = [UIColor whiteColor];
+	}
 
-    self._titleTextField.backgroundColor = [UIColor clearColor];
-    self._titleTextField.alpha = 1.0;
-    self._titleTextField.textColor = [UIColor whiteColor];
+	self._titleTextField.backgroundColor = [UIColor clearColor];
+	self._titleTextField.alpha = 1.0;
+	self._titleTextField.textColor = [UIColor whiteColor];
 }
 
 - (void)layoutSubviews {
-    %orig();
+	%orig();
 
-    self._titleLabel.textColor = [UIColor whiteColor];    
-    self._subtitleLabel.textColor = [UIColor whiteColor];
+	self._titleLabel.textColor = [UIColor whiteColor];    
+	self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end
@@ -349,8 +325,7 @@ s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n
 %end // %group Seven
 
 /*
-                                                                                        
-                                                                                        
+																																												                                                                  
                      iiii                     hhhhhhh                     tttt          
                     i::::i                    h:::::h                  ttt:::t          
                      iiii                     h:::::h                  t:::::t          
@@ -373,25 +348,45 @@ e::::::::e         i::::::ig:::::::ggggg:::::g h:::::h     h:::::h     t::::::tt
                             g::::::ggg:::::::g                                          
                              gg:::::::::::::g                                           
                                ggg::::::ggg                                             
-                                  gggggg                                                
+                                  gggggg          
+
 */
 
 %group Eight
 
-%hook PUAlbumListCellContentView
+%hook PUPhotosSectionHeaderContentView
 
-- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
-    %orig();
-
-    self._titleTextField.backgroundColor = [UIColor clearColor];
-    self._titleTextField.alpha = 1.0;
-    self._titleTextField.textColor = [UIColor whiteColor];
+- (id)locationsLabel {
+	UILabel *locationsLabel = %orig();
+	locationsLabel.textColor = [UIColor whiteColor];
+	return locationsLabel;
 }
 
 - (void)layoutSubviews {
-    %orig();
+	%orig();
 
-    self._subtitleLabel.textColor = [UIColor whiteColor];
+	self.dateLabel.textColor = [UIColor whiteColor];
+	self.locationsLabel.textColor = [UIColor whiteColor];
+	self.titleLabel.textColor = [UIColor whiteColor];
+}
+
+%end
+
+%hook PUAlbumListCellContentView
+
+- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
+	%orig();
+
+	self._titleTextField.backgroundColor = [UIColor clearColor];
+	self._titleTextField.alpha = 1.0;
+	self._titleTextField.textColor = [UIColor whiteColor];
+}
+
+- (void)layoutSubviews {
+	%orig();
+
+	self._titleTextField.textColor = [UIColor whiteColor];    
+	self._subtitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end
@@ -399,8 +394,7 @@ e::::::::e         i::::::ig:::::::ggggg:::::g h:::::h     h:::::h     t::::::tt
 %end // %group Eight
 
 /*
-                                                                                
-                                                                                
+                                                                                                                              
                              tttt                                               
                           ttt:::t                                               
                           t:::::t                                               
@@ -417,40 +411,41 @@ c:::::::cccccc:::::c      t::::::tttt:::::to:::::ooooo:::::o r:::::r
  c:::::::::::::::::c      tt::::::::::::::to:::::::::::::::o r:::::r            
   cc:::::::::::::::c        tt:::::::::::tt oo:::::::::::oo  r:::::r            
     cccccccccccccccc          ttttttttttt     ooooooooooo    rrrrrrr            
+                                                                                                                                                                   
 */
 
 %ctor {
-    if (IOS_8) {
-        %init(EightSplash);
-    }
+	if (IOS_8) {
+		%init(EightSplash);
+	}
 
-    else {
-        %init(Splash);
-    }
+	else {
+		%init(Splash);
+	}
 
-    // For global appearance changes. This method only works for standard
-    // UI elements, and in this case, the UITabBar and UITableViewCells.
-    if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.mobileslideshow"]) {
-        %init(Photos);
+	// For global appearance changes. This method only works for standard
+	// UI elements, and in this case, the UITabBar and UITableViewCells.
+	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.mobileslideshow"]) {
+		%init(Photos);
 
-        [UITabBar appearance].barStyle = UIBarStyleBlack;
-        [UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
+		[UITabBar appearance].barStyle = UIBarStyleBlack;
+		[UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
 
-        if (IS_PANGU) {
-            [UINavigationBar appearance].barStyle = UIBarStyleBlack;
-            %init(Pangu);
+		if (IS_PANGU) {
+			[UINavigationBar appearance].barStyle = UIBarStyleBlack;
+			%init(Pangu);
 
-            if (IOS_7) {
-                %init(Seven);
-            }
+			if (IOS_7) {
+				%init(Seven);
+			}
 
-            else {
-                %init(Eight);
-            }
-        }
+			else {
+				%init(Eight);
+			}
+		}
 
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        }];
-    }
+		[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
+			[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+		}];
+	}
 }
