@@ -1,33 +1,34 @@
 #import "DarkPhotos.h"
 
 /*                                                                                                                                                       
-                                                                                                  
-                                     lllllll                                  hhhhhhh             
-                                     l:::::l                                  h:::::h             
-                                     l:::::l                                  h:::::h             
-                                     l:::::l                                  h:::::h             
-    ssssssssss   ppppp   ppppppppp    l::::l   aaaaaaaaaaaaa      ssssssssss   h::::h hhhhh       
-  ss::::::::::s  p::::ppp:::::::::p   l::::l   a::::::::::::a   ss::::::::::s  h::::hh:::::hhh    
-ss:::::::::::::s p:::::::::::::::::p  l::::l   aaaaaaaaa:::::ass:::::::::::::s h::::::::::::::hh  
-s::::::ssss:::::spp::::::ppppp::::::p l::::l            a::::as::::::ssss:::::sh:::::::hhh::::::h 
- s:::::s  ssssss  p:::::p     p:::::p l::::l     aaaaaaa:::::a s:::::s  ssssss h::::::h   h::::::h
-   s::::::s       p:::::p     p:::::p l::::l   aa::::::::::::a   s::::::s      h:::::h     h:::::h
-      s::::::s    p:::::p     p:::::p l::::l  a::::aaaa::::::a      s::::::s   h:::::h     h:::::h
-ssssss   s:::::s  p:::::p    p::::::p l::::l a::::a    a:::::assssss   s:::::s h:::::h     h:::::h
-s:::::ssss::::::s p:::::ppppp:::::::pl::::::la::::a    a:::::as:::::ssss::::::sh:::::h     h:::::h
-s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h:::::h     h:::::h
- s:::::::::::ss   p::::::::::::::pp  l::::::l a::::::::::aa:::as:::::::::::ss  h:::::h     h:::::h
-  sssssssssss     p::::::pppppppp    llllllll  aaaaaaaaaa  aaaa sssssssssss    hhhhhhh     hhhhhhh
-                  p:::::p                                                                         
-                  p:::::p                                                                         
-                 p:::::::p                                                                        
-                 p:::::::p                                                                        
-                 p:::::::p                                                                        
-                 ppppppppp                                                                        
-                                                                                                  																																						
+                                                                                                                                                                                                                    
+                     iiii                     hhhhhhh                     tttt          
+                    i::::i                    h:::::h                  ttt:::t          
+                     iiii                     h:::::h                  t:::::t          
+                                              h:::::h                  t:::::t          
+    eeeeeeeeeeee   iiiiiii    ggggggggg   gggggh::::h hhhhh      ttttttt:::::ttttttt    
+  ee::::::::::::ee i:::::i   g:::::::::ggg::::gh::::hh:::::hhh   t:::::::::::::::::t    
+ e::::::eeeee:::::eei::::i  g:::::::::::::::::gh::::::::::::::hh t:::::::::::::::::t    
+e::::::e     e:::::ei::::i g::::::ggggg::::::ggh:::::::hhh::::::htttttt:::::::tttttt    
+e:::::::eeeee::::::ei::::i g:::::g     g:::::g h::::::h   h::::::h     t:::::t          
+e:::::::::::::::::e i::::i g:::::g     g:::::g h:::::h     h:::::h     t:::::t          
+e::::::eeeeeeeeeee  i::::i g:::::g     g:::::g h:::::h     h:::::h     t:::::t          
+e:::::::e           i::::i g::::::g    g:::::g h:::::h     h:::::h     t:::::t    tttttt
+e::::::::e         i::::::ig:::::::ggggg:::::g h:::::h     h:::::h     t::::::tttt:::::t
+ e::::::::eeeeeeee i::::::i g::::::::::::::::g h:::::h     h:::::h     tt::::::::::::::t
+  ee:::::::::::::e i::::::i  gg::::::::::::::g h:::::h     h:::::h       tt:::::::::::tt
+    eeeeeeeeeeeeee iiiiiiii    gggggggg::::::g hhhhhhh     hhhhhhh         ttttttttttt  
+                                       g:::::g                                          
+                           gggggg      g:::::g                                          
+                           g:::::gg   gg:::::g                                          
+                            g::::::ggg:::::::g                                          
+                             gg:::::::::::::g                                           
+                               ggg::::::ggg                                             
+                                  gggggg                                                                                                                                               
+
 */
 
-%group EightSplash
+%group Eight
 
 %hook SBApplication
 
@@ -44,9 +45,26 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
 
 %end
 
-%end // %group EightSplash
+%end // %group Eight
 
-%group Splash
+/*
+                                                                                       
+    ssssssssss       eeeeeeeeeeee  vvvvvvv           vvvvvvv eeeeeeeeeeee    nnnn  nnnnnnnn    
+  ss::::::::::s    ee::::::::::::ee v:::::v         v:::::vee::::::::::::ee  n:::nn::::::::nn  
+ss:::::::::::::s  e::::::eeeee:::::eev:::::v       v:::::ve::::::eeeee:::::een::::::::::::::nn 
+s::::::ssss:::::se::::::e     e:::::e v:::::v     v:::::ve::::::e     e:::::enn:::::::::::::::n
+ s:::::s  ssssss e:::::::eeeee::::::e  v:::::v   v:::::v e:::::::eeeee::::::e  n:::::nnnn:::::n
+   s::::::s      e:::::::::::::::::e    v:::::v v:::::v  e:::::::::::::::::e   n::::n    n::::n
+      s::::::s   e::::::eeeeeeeeeee      v:::::v:::::v   e::::::eeeeeeeeeee    n::::n    n::::n
+ssssss   s:::::s e:::::::e                v:::::::::v    e:::::::e             n::::n    n::::n
+s:::::ssss::::::se::::::::e                v:::::::v     e::::::::e            n::::n    n::::n
+s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n::::n    n::::n
+ s:::::::::::ss    ee:::::::::::::e          v:::v         ee:::::::::::::e    n::::n    n::::n
+  sssssssssss        eeeeeeeeeeeeee           vvv            eeeeeeeeeeeeee    nnnnnn    nnnnnn
+                                                                                               
+*/
+
+%group Seven
 
 %hook SBApplication
 
@@ -63,7 +81,7 @@ s::::::::::::::s  p::::::::::::::::p l::::::la:::::aaaa::::::as::::::::::::::s h
 
 %end
 
-%end // %group Splash
+%end // %group Seven
 
 /*
                                                                                                                                                                                                             
@@ -94,15 +112,6 @@ ppppppppp
 
 %group Photos
 
-// "Moments" view background.
-%hook PUGridRenderedStrip
-
-- (int)backgroundColorValue {
-	return 0;
-}
-
-%end
-
 // Replaces and prevents updating of collection/tableview header background colors.
 %hook PUPhotosSectionHeaderView
 
@@ -114,6 +123,93 @@ ppppppppp
 
 - (void)_updateBackground {
 	return;
+}
+
+// found on 7.0
+- (void)_updateTitleLabelAnimated:(BOOL)arg1 {
+	%orig(arg1);
+	MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateDateLabelAnimated:(BOOL)arg1 {
+	%orig(arg1);
+	MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateLocationsLabelVisibilityAnimated:(BOOL)arg1 {
+	%orig();
+	MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
+}
+
+// found on 7.1-8.0
+/*
+- (void)_updateTitleLabelAnimated:(BOOL)arg1 {
+	%orig(arg1);
+	MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateDateLabelAnimated:(BOOL)arg1 {
+	%orig(arg1);
+	MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
+}
+
+- (void)_updateLocationsLabelVisibilityAnimated:(BOOL)arg1 {
+	%orig();
+	M
+*/
+%end
+
+// found on 7.1-8.0
+%hook PUPhotosSectionHeaderContentView
+
+- (id)locationsLabel {
+	UILabel *locationsLabel = %orig();
+	locationsLabel.textColor = [UIColor whiteColor];
+	return locationsLabel;
+}
+
+- (void)layoutSubviews {
+	%orig();
+
+	self.titleLabel.textColor = [UIColor whiteColor];
+	self.dateLabel.textColor = [UIColor whiteColor];
+	self.locationsLabel.textColor = [UIColor whiteColor];
+}
+
+%end
+
+%hook PUAlbumListCellContentView
+
+- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
+	%orig(arg1);
+
+	if ([self respondsToSelector:@selector(_titleLabel)]) {
+		self._titleLabel.backgroundColor = [UIColor clearColor];
+		self._titleLabel.alpha = 1.0;
+		self._titleLabel.textColor = [UIColor whiteColor];
+	}
+
+	self._titleTextField.backgroundColor = [UIColor clearColor];
+	self._titleTextField.alpha = 1.0;
+	self._titleTextField.textColor = [UIColor whiteColor];
+}
+
+
+- (void)_updateSubtitleLabelAnimated:(BOOL)arg1 {
+	%orig(arg1);
+
+	self._subtitleLabel.backgroundColor = [UIColor clearColor];
+	self._subtitleLabel.alpha = 1.0;
+	self._subtitleLabel.textColor = [UIColor whiteColor];
+}
+
+%end
+
+// "Moments" view background.
+%hook PUGridRenderedStrip
+
+- (int)backgroundColorValue {
+	return 0;
 }
 
 %end
@@ -194,205 +290,20 @@ ppppppppp
 
 %end
 
-%hook PUAlbumListCellContentView
-
-- (void)layoutSubviews {
-	%orig();
-
-	self._titleTextField.textColor = [UIColor whiteColor];
-	self._subtitleLabel.textColor = [UIColor whiteColor];
-}
-
-%end
-
 // Table view controller that shows up under People tab in Steams
 %hook PLAlbumStreamingOptionsViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-		UITableView *options = MSHookIvar<UITableView *>(self, "_optionsTableView");
-		options.backgroundColor = [UIColor blackColor];
+	UITableView *options = MSHookIvar<UITableView *>(self, "_optionsTableView");
+	options.backgroundColor = [UIColor blackColor];
 
-		%orig(animated);
+	%orig(animated);
 }
 
 %end
 
 %end // %group Photos
 																																														 
-/*                                                                                                                                                                                        
-                                                                       
-ppppp   ppppppppp     aaaaaaaaaaaaa  nnnn  nnnnnnnn       ggggggggg   ggggguuuuuu    uuuuuu  
-p::::ppp:::::::::p    a::::::::::::a n:::nn::::::::nn    g:::::::::ggg::::gu::::u    u::::u  
-p:::::::::::::::::p   aaaaaaaaa:::::an::::::::::::::nn  g:::::::::::::::::gu::::u    u::::u  
-pp::::::ppppp::::::p           a::::ann:::::::::::::::ng::::::ggggg::::::ggu::::u    u::::u  
- p:::::p     p:::::p    aaaaaaa:::::a  n:::::nnnn:::::ng:::::g     g:::::g u::::u    u::::u  
- p:::::p     p:::::p  aa::::::::::::a  n::::n    n::::ng:::::g     g:::::g u::::u    u::::u  
- p:::::p     p:::::p a::::aaaa::::::a  n::::n    n::::ng:::::g     g:::::g u::::u    u::::u  
- p:::::p    p::::::pa::::a    a:::::a  n::::n    n::::ng::::::g    g:::::g u:::::uuuu:::::u  
- p:::::ppppp:::::::pa::::a    a:::::a  n::::n    n::::ng:::::::ggggg:::::g u:::::::::::::::uu
- p::::::::::::::::p a:::::aaaa::::::a  n::::n    n::::n g::::::::::::::::g  u:::::::::::::::u
- p::::::::::::::pp   a::::::::::aa:::a n::::n    n::::n  gg::::::::::::::g   uu::::::::uu:::u
- p::::::pppppppp      aaaaaaaaaa  aaaa nnnnnn    nnnnnn    gggggggg::::::g     uuuuuuuu  uuuu
- p:::::p                                                           g:::::g                   
- p:::::p                                               gggggg      g:::::g                   
-p:::::::p                                              g:::::gg   gg:::::g                   
-p:::::::p                                               g::::::ggg:::::::g                   
-p:::::::p                                                gg:::::::::::::g                    
-ppppppppp                                                  ggg::::::ggg                      
-                                                              gggggg                                               
-*/
-
-%group Pangu
-
-%hook PUAlbumListCellContentView
-
-// Editing view animation solving
-- (void)_updateSubtitleLabelAnimated:(BOOL)arg1 {
-	%orig();
-
-	self._subtitleLabel.backgroundColor = [UIColor clearColor];
-	self._subtitleLabel.alpha = 1.0;
-	self._subtitleLabel.textColor = [UIColor whiteColor];
-}
-
-%end
-
-%end // %group Pangu
-
-/*                                                                                       
-                                                                                                                                                                                       
-    ssssssssss       eeeeeeeeeeee  vvvvvvv           vvvvvvv eeeeeeeeeeee    nnnn  nnnnnnnn    
-  ss::::::::::s    ee::::::::::::ee v:::::v         v:::::vee::::::::::::ee  n:::nn::::::::nn  
-ss:::::::::::::s  e::::::eeeee:::::eev:::::v       v:::::ve::::::eeeee:::::een::::::::::::::nn 
-s::::::ssss:::::se::::::e     e:::::e v:::::v     v:::::ve::::::e     e:::::enn:::::::::::::::n
- s:::::s  ssssss e:::::::eeeee::::::e  v:::::v   v:::::v e:::::::eeeee::::::e  n:::::nnnn:::::n
-   s::::::s      e:::::::::::::::::e    v:::::v v:::::v  e:::::::::::::::::e   n::::n    n::::n
-      s::::::s   e::::::eeeeeeeeeee      v:::::v:::::v   e::::::eeeeeeeeeee    n::::n    n::::n
-ssssss   s:::::s e:::::::e                v:::::::::v    e:::::::e             n::::n    n::::n
-s:::::ssss::::::se::::::::e                v:::::::v     e::::::::e            n::::n    n::::n
-s::::::::::::::s  e::::::::eeeeeeee         v:::::v       e::::::::eeeeeeee    n::::n    n::::n
- s:::::::::::ss    ee:::::::::::::e          v:::v         ee:::::::::::::e    n::::n    n::::n
-  sssssssssss        eeeeeeeeeeeeee           vvv            eeeeeeeeeeeeee    nnnnnn    nnnnnn
-                                                                                                                                                                                        
-*/
-
-%group Seven
-
-%hook PUPhotosSectionHeaderView
-
-- (void)_updateTitleLabel {
-	%orig();
-	MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
-}
-
-- (void)_updateDateLabel {
-	%orig();
-	MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
-}
-
-- (void)_updateLocationsLabelVisibility {
-	%orig();
-	MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
-}
-
-%end
-
-%hook PUAlbumListCellContentView
-
-- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
-	%orig();
-
-	if (IS_PANGU) {
-		self._titleLabel.backgroundColor = [UIColor clearColor];
-		self._titleLabel.alpha = 1.0;
-		self._titleLabel.textColor = [UIColor whiteColor];
-	}
-
-	self._titleTextField.backgroundColor = [UIColor clearColor];
-	self._titleTextField.alpha = 1.0;
-	self._titleTextField.textColor = [UIColor whiteColor];
-}
-
-- (void)layoutSubviews {
-	%orig();
-
-	self._titleLabel.textColor = [UIColor whiteColor];    
-	self._subtitleLabel.textColor = [UIColor whiteColor];
-}
-
-%end
-
-%end // %group Seven
-
-/*
-																																												                                                                  
-                     iiii                     hhhhhhh                     tttt          
-                    i::::i                    h:::::h                  ttt:::t          
-                     iiii                     h:::::h                  t:::::t          
-                                              h:::::h                  t:::::t          
-    eeeeeeeeeeee   iiiiiii    ggggggggg   gggggh::::h hhhhh      ttttttt:::::ttttttt    
-  ee::::::::::::ee i:::::i   g:::::::::ggg::::gh::::hh:::::hhh   t:::::::::::::::::t    
- e::::::eeeee:::::eei::::i  g:::::::::::::::::gh::::::::::::::hh t:::::::::::::::::t    
-e::::::e     e:::::ei::::i g::::::ggggg::::::ggh:::::::hhh::::::htttttt:::::::tttttt    
-e:::::::eeeee::::::ei::::i g:::::g     g:::::g h::::::h   h::::::h     t:::::t          
-e:::::::::::::::::e i::::i g:::::g     g:::::g h:::::h     h:::::h     t:::::t          
-e::::::eeeeeeeeeee  i::::i g:::::g     g:::::g h:::::h     h:::::h     t:::::t          
-e:::::::e           i::::i g::::::g    g:::::g h:::::h     h:::::h     t:::::t    tttttt
-e::::::::e         i::::::ig:::::::ggggg:::::g h:::::h     h:::::h     t::::::tttt:::::t
- e::::::::eeeeeeee i::::::i g::::::::::::::::g h:::::h     h:::::h     tt::::::::::::::t
-  ee:::::::::::::e i::::::i  gg::::::::::::::g h:::::h     h:::::h       tt:::::::::::tt
-    eeeeeeeeeeeeee iiiiiiii    gggggggg::::::g hhhhhhh     hhhhhhh         ttttttttttt  
-                                       g:::::g                                          
-                           gggggg      g:::::g                                          
-                           g:::::gg   gg:::::g                                          
-                            g::::::ggg:::::::g                                          
-                             gg:::::::::::::g                                           
-                               ggg::::::ggg                                             
-                                  gggggg          
-
-*/
-
-%group Eight
-
-%hook PUPhotosSectionHeaderContentView
-
-- (id)locationsLabel {
-	UILabel *locationsLabel = %orig();
-	locationsLabel.textColor = [UIColor whiteColor];
-	return locationsLabel;
-}
-
-- (void)layoutSubviews {
-	%orig();
-
-	self.dateLabel.textColor = [UIColor whiteColor];
-	self.locationsLabel.textColor = [UIColor whiteColor];
-	self.titleLabel.textColor = [UIColor whiteColor];
-}
-
-%end
-
-%hook PUAlbumListCellContentView
-
-- (void)_updateTitleFieldAnimated:(BOOL)arg1 {
-	%orig();
-
-	self._titleTextField.backgroundColor = [UIColor clearColor];
-	self._titleTextField.alpha = 1.0;
-	self._titleTextField.textColor = [UIColor whiteColor];
-}
-
-- (void)layoutSubviews {
-	%orig();
-
-	self._titleTextField.textColor = [UIColor whiteColor];    
-	self._subtitleLabel.textColor = [UIColor whiteColor];
-}
-
-%end
-
-%end // %group Eight
-
 /*
                                                                                                                               
                              tttt                                               
@@ -416,11 +327,11 @@ c:::::::cccccc:::::c      t::::::tttt:::::to:::::ooooo:::::o r:::::r
 
 %ctor {
 	if (IOS_8) {
-		%init(EightSplash);
+		%init(Eight);
 	}
 
 	else {
-		%init(Splash);
+		%init(Seven);
 	}
 
 	// For global appearance changes. This method only works for standard
@@ -430,19 +341,7 @@ c:::::::cccccc:::::c      t::::::tttt:::::to:::::ooooo:::::o r:::::r
 
 		[UITabBar appearance].barStyle = UIBarStyleBlack;
 		[UITableViewCell appearance].backgroundColor = [UIColor darkGrayColor];
-
-		if (IS_PANGU) {
-			[UINavigationBar appearance].barStyle = UIBarStyleBlack;
-			%init(Pangu);
-
-			if (IOS_7) {
-				%init(Seven);
-			}
-
-			else {
-				%init(Eight);
-			}
-		}
+		[UINavigationBar appearance].barStyle = UIBarStyleBlack;
 
 		[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification){
 			[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

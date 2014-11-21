@@ -8,8 +8,7 @@
     #define DPLOG(fmt, ...) 
 #endif
 
-#define IS_PANGU ([[[UIDevice currentDevice] systemVersion] compare:@"7.1" options:NSNumericSearch] == NSOrderedDescending)
-#define IOS_7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0 && ([UIDevice currentDevice].systemVersion.floatValue < 8.0))
+#define IOS_7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0 && [UIDevice currentDevice].systemVersion.floatValue < 8.0)
 #define IOS_8 ([UIDevice currentDevice].systemVersion.floatValue >= 8.0)
 
 @interface SBApplication : UIApplication
