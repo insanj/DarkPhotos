@@ -142,31 +142,25 @@ ppppppppp
 }
 
 // found on 7.1-8.0
-/*
-- (void)_updateTitleLabelAnimated:(BOOL)arg1 {
-	%orig(arg1);
+- (void)_updateTitleLabel {
+	%orig();
 	MSHookIvar<UILabel *>(self, "_titleLabel").textColor = [UIColor whiteColor];
 }
 
-- (void)_updateDateLabelAnimated:(BOOL)arg1 {
-	%orig(arg1);
+- (void)_updateDateLabel {
+	%orig();
 	MSHookIvar<UILabel *>(self, "_dateLabel").textColor = [UIColor whiteColor];
 }
 
-- (void)_updateLocationsLabelVisibilityAnimated:(BOOL)arg1 {
+- (void)_updateLocationsLabelVisibility {
 	%orig();
-	M
-*/
+	MSHookIvar<UILabel *>(self, "_locationsLabel").textColor = [UIColor whiteColor];
+}
+
 %end
 
 // found on 7.1-8.0
 %hook PUPhotosSectionHeaderContentView
-
-- (id)locationsLabel {
-	UILabel *locationsLabel = %orig();
-	locationsLabel.textColor = [UIColor whiteColor];
-	return locationsLabel;
-}
 
 - (void)layoutSubviews {
 	%orig();
@@ -221,6 +215,15 @@ ppppppppp
 	return [UIColor blackColor];
 }
 
+// ios 8
+- (id)bannerBackgroundColor {
+	return [UIColor blackColor];
+}
+
+- (UIColor *)cloudFeedBackgroundColor {
+	return [UIColor blackColor];
+}
+
 - (NSDictionary *)cloudFeedDefaultTextAttributes {
 	return [self cloudFeedWhiteDefaultTextAttributes];
 }
@@ -229,7 +232,21 @@ ppppppppp
 	return [self cloudFeedWhiteEmphasizedTextAttributes];
 }
 
-- (UIColor *)cloudFeedBackgroundColor {
+- (UIColor *)emptyPlaceholderViewBackgroundColor {
+	return [UIColor blackColor];
+}
+
+// ios 8 
+- (UIColor *)folderCellBackgroundColor {
+ 	return [UIColor blackColor];
+}
+
+- (UIColor *)gridViewCellBannerTextColor {
+	return [UIColor whiteColor];
+}
+
+// ios 8
+- (UIColor *)gridViewCellBannerBackgroundColor {
 	return [UIColor blackColor];
 }
 
@@ -257,8 +274,19 @@ ppppppppp
 	return [UIColor blackColor];
 }
 
-- (UIColor *)emptyPlaceholderViewBackgroundColor {
-	return [UIColor blackColor];
+// ios 8
+- (UIColor *)photoCollectionToolbarButtonTintColor {
+	return [UIColor whiteColor];
+}
+
+// ios 8
+- (UIColor *)photoCollectionToolbarTintColor {
+	return [UIColor whiteColor];
+}
+
+// ios 8
+- (BOOL)photoCollectionToolbarTranslucent {
+	return YES;
 }
 
 - (UIStatusBarStyle)topLevelStatusBarStyle {
@@ -267,6 +295,11 @@ ppppppppp
 
 - (UIColor *)photoCollectionViewBackgroundColor {
 	return [UIColor blackColor];
+}
+
+// ios 8
+- (id)topLevelNavigationBarButtonTintColor {
+	return [UIColor whiteColor];
 }
 
 %end
@@ -285,6 +318,7 @@ ppppppppp
 
 - (void)layoutSubviews {
 	%orig();
+
 	self.backgroundColor = [UIColor blackColor];
 }
 
@@ -298,6 +332,23 @@ ppppppppp
 	options.backgroundColor = [UIColor blackColor];
 
 	%orig(animated);
+}
+
+%end
+
+// ios 8 only?
+%hook PUPhotoBrowserTitleView
+
+- (void)layoutSubviews {
+	%orig();
+
+	UILabel *landscapeTitleLabel = MSHookIvar<UILabel *>(self, "_landscapeTitleLabel");
+	UILabel *primaryTitleLabel = MSHookIvar<UILabel *>(self, "_primaryTitleLabel");
+	UILabel *secondaryTitleLabel = MSHookIvar<UILabel *>(self, "_secondaryTitleLabel");
+
+	landscapeTitleLabel.textColor = 
+	primaryTitleLabel.textColor = 
+	secondaryTitleLabel.textColor = [UIColor whiteColor];
 }
 
 %end

@@ -2,7 +2,7 @@ Package: com.insanj.darkphotos
 Name: DarkPhotos
 Pre-Depends: firmware (>= 7.0)
 Depends: mobilesubstrate
-Version: 1.3.2
+Version: 1.3.3
 Architecture: iphoneos-arm
 Description: Dark, beautiful Photos app.
 Maintainer: Julian Weiss <insanjmail@gmail.com>
